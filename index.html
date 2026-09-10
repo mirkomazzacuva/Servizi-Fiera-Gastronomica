@@ -1,12 +1,109 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f5f7"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><title>Disponibilità Fiera</title><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css"></head><body class="public-body">
-<div class="public-shell">
-  <header class="public-brand"><div class="brand-mark">F</div><div><div class="eyebrow">Fiera Gastronomica</div><div class="brand-title" id="brand">Disponibilità servizi</div></div></header>
-  <section class="hero-clean"><div class="hero-kicker">Disponibilità servizi</div><h1>Quando ci sei?</h1><p>Scegli le serate in cui puoi esserci e indica cosa sei disponibile a fare. Bastano pochi secondi.</p></section>
-  <form id="availabilityForm">
-    <section class="glass-card"><div class="section-head"><div><div class="eyebrow">1 · I tuoi dati</div><h2>Chi sei</h2></div></div><div class="form-grid"><label class="field"><span>Nome e cognome</span><input id="fullName" required autocomplete="name" placeholder="Mario Rossi"></label><label class="field"><span>Telefono</span><input id="phone" required inputmode="tel" autocomplete="tel" placeholder="333 1234567"></label></div><label class="field mt"><span>Gruppo / compagnia <em>facoltativo</em></span><input id="groupName" placeholder="Es. Termiti"></label></section>
-    <section class="glass-card"><div class="section-head"><div><div class="eyebrow">2 · Disponibilità</div><h2>Le tue serate</h2></div><span class="counter" id="dateCount">0</span></div><div id="dates" class="date-list"><div class="skeleton-list"><div></div><div></div><div></div></div></div></section>
-    <section class="glass-card"><label class="field"><span>Note <em>facoltative</em></span><textarea id="notes" rows="3" placeholder="Orari particolari, esigenze, informazioni utili…"></textarea></label><button class="primary-cta" id="submitBtn" type="submit">Invia disponibilità</button><div id="message" class="mt"></div></section>
-  </form>
-  <footer class="public-footer">Se cambiano i tuoi programmi, ricompila il modulo con lo stesso numero di telefono: la disponibilità precedente verrà aggiornata.</footer>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="version.js"></script><script src="app.js"></script><script>if('serviceWorker'in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}</script></body></html>
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#066fa9">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Disponibilita servizi per la Fiera Gastronomica della Nobile Contrada del Nicchio.">
+  <title>Fiera Gastronomica - Disponibilita</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="public-body heritage-v5">
+  <div class="nicchio-ribbon" aria-hidden="true"></div>
+  <div class="public-hero-bg heritage-bg" aria-hidden="true"><div class="flag-weave"></div></div>
+
+  <div class="public-shell">
+    <header class="public-brand heritage-header">
+      <a class="heritage-brand" href="https://www.nobilecontradadelnicchio.it" target="_blank" rel="noopener">
+        <span class="shell-emblem" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img"><path d="M32 8c-12 0-22 12-22 28 0 9 8 16 22 20 14-4 22-11 22-20C54 20 44 8 32 8Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M32 10v43M18 17l14 36M46 17 32 53M12 30l20 23M52 30 32 53" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/></svg>
+        </span>
+        <span><small>Nobile Contrada del Nicchio</small><strong id="brand">Fiera Gastronomica</strong></span>
+      </a>
+      <a class="admin-link" href="admin.html" aria-label="Area organizzatori"><span>Area organizzatori</span></a>
+    </header>
+
+    <section class="hero-nicchio editorial-hero">
+      <div class="hero-copy">
+        <div class="hero-kicker"><span class="kicker-dot"></span>Pispini · Siena</div>
+        <h1>La Fiera<br><em>si fa insieme.</em></h1>
+        <p>Scegli le serate in cui ci sei davvero. Tu dai la disponibilita, noi organizziamo padiglione e servizio.</p>
+        <div class="hero-actions">
+          <a href="#availabilityStart" class="hero-primary">Dai la disponibilita <span>↓</span></a>
+          <span class="hero-time">Ci vogliono meno di 30 secondi.</span>
+        </div>
+      </div>
+      <div class="hero-mark" aria-hidden="true">
+        <div class="hero-shell">
+          <svg viewBox="0 0 220 220"><path d="M110 24C66 24 28 69 28 126c0 33 30 59 82 74 52-15 82-41 82-74 0-57-38-102-82-102Z" fill="none" stroke="currentColor" stroke-width="7"/><path d="M110 30v161M63 48l47 143M157 48l-47 143M37 99l73 92M183 99l-73 92M30 139l80 52M190 139l-80 52" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="motto-card"><span>Il motto</span><strong>E' il rosso del corallo<br>che m'arde in cor</strong></div>
+      </div>
+    </section>
+
+    <div class="public-layout" id="availabilityStart">
+      <form id="availabilityForm" class="public-form">
+        <div class="form-intro">
+          <span class="form-index">01</span>
+          <div><div class="eyebrow">Disponibilita servizi</div><h2>Quando ci sei?</h2><p>Indica soltanto le sere in cui sei realmente disponibile. Potrai aggiornare la risposta usando lo stesso numero di telefono.</p></div>
+        </div>
+
+        <section class="glass-card step-card">
+          <div class="section-head"><div><div class="step-label"><span>1</span> I tuoi dati</div><h3>Chi sei</h3></div><div class="step-check">Dati</div></div>
+          <div class="form-grid">
+            <label class="field"><span>Nome e cognome</span><input id="fullName" required autocomplete="name" placeholder="Mario Rossi"></label>
+            <label class="field"><span>Telefono</span><input id="phone" required inputmode="tel" autocomplete="tel" placeholder="333 1234567"></label>
+          </div>
+          <label class="field mt"><span>Gruppo / compagnia <em>facoltativo</em></span><input id="groupName" placeholder="Es. Termiti"></label>
+        </section>
+
+        <section class="glass-card step-card dates-card">
+          <div class="section-head sticky-section-head">
+            <div><div class="step-label"><span>2</span> Le serate</div><h3>Scegli i giorni</h3></div>
+            <div class="counter-wrap"><span class="counter-label">Scelte</span><span class="counter" id="dateCount">0</span></div>
+          </div>
+          <div class="help-strip"><span class="help-dot"></span><p>Tocca una serata e scegli <b>Cucina</b>, <b>Servizio</b> o <b>Entrambi</b>. Il padiglione verra assegnato dagli organizzatori.</p></div>
+          <div id="dates" class="date-list"><div class="skeleton-list"><div></div><div></div><div></div></div></div>
+        </section>
+
+        <section class="glass-card step-card final-card" id="sendSection">
+          <div class="section-head"><div><div class="step-label"><span>3</span> Ultimo passo</div><h3>Ci siamo</h3></div><div class="step-check">Invia</div></div>
+          <label class="field"><span>Note <em>facoltative</em></span><textarea id="notes" rows="3" placeholder="Orari particolari, esigenze, informazioni utili..."></textarea></label>
+          <button class="primary-cta nicchio-cta" id="submitBtn" type="submit"><span>Invia disponibilita</span><b>→</b></button>
+          <div id="message" class="mt"></div>
+          <p class="privacy-note">Il numero viene usato solo per organizzare i servizi e contattarti per la conferma.</p>
+        </section>
+      </form>
+
+      <aside class="public-aside">
+        <div class="aside-card editorial-aside">
+          <div class="aside-num">01</div><h3>Scegli i giorni.</h3><p>Segna solo le serate in cui sei sicuro di esserci.</p>
+          <div class="aside-rule"></div>
+          <div class="aside-num">02</div><h3>Dicci cosa puoi fare.</h3><p>Cucina, servizio oppure entrambi. Il padiglione lo assegniamo noi.</p>
+          <div class="aside-rule"></div>
+          <div class="aside-num">03</div><h3>Conferma il turno.</h3><p>Qualche giorno prima riceverai il riepilogo del servizio.</p>
+        </div>
+        <div class="aside-card accent-card heritage-accent">
+          <div class="eyebrow light">Se cambiano i programmi</div><h3>Nessun problema.</h3><p>Ricompila il modulo con lo stesso telefono: la disponibilita precedente viene aggiornata.</p>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="public-footer heritage-footer">
+      <div><strong>Nobile Contrada del Nicchio</strong><span>·</span><span>Fiera Gastronomica</span></div>
+      <a href="https://www.nobilecontradadelnicchio.it/fiera-gastronomica/" target="_blank" rel="noopener">La storia della Fiera ↗</a>
+    </footer>
+  </div>
+
+  <div class="mobile-selection-bar" id="mobileAction" hidden>
+    <button type="button" id="mobileSend"><span><b id="mobileCount">0</b> serate selezionate</span><strong>Continua →</strong></button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script><script src="version.js"></script><script src="app.js"></script>
+  <script>if('serviceWorker'in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}</script>
+</body>
+</html>
