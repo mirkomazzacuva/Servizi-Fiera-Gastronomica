@@ -1,0 +1,80 @@
+name: Installa App Fiera da ZIP
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'fiera-release.zip'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fiera-zip-installer
+  cancel-in-progress: false
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Scarica repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Controlla ZIP
+        shell: bash
+        run: |
+          set -e
+          test -f fiera-release.zip || { echo "ERRORE: fiera-release.zip non trovato"; exit 1; }
+          unzip -t fiera-release.zip
+
+      - name: Installa aggiornamento preservando config.js
+        shell: bash
+        run: |
+          set -e
+
+          if [ -f config.js ]; then
+            cp config.js /tmp/config.js
+          fi
+
+          rm -rf /tmp/fiera-release
+          mkdir -p /tmp/fiera-release
+          unzip -o fiera-release.zip -d /tmp/fiera-release
+
+          for file in             index.html             admin.html             confirm.html             diagnostics.html             styles.css             app.js             admin.js             confirm.js             diagnostics.js             manifest.webmanifest             sw.js             version.js
+          do
+            if [ -f "/tmp/fiera-release/$file" ]; then
+              cp -f "/tmp/fiera-release/$file" "./$file"
+              echo "Aggiornato: $file"
+            else
+              echo "ERRORE: $file non presente nel release ZIP"
+              exit 1
+            fi
+          done
+
+          if [ -f /tmp/config.js ]; then
+            cp /tmp/config.js config.js
+          fi
+
+          echo "Installazione completata. config.js preservato."
+
+      - name: Pubblica i file nel repository
+        shell: bash
+        run: |
+          set -e
+          git config user.name "Fiera Auto Installer"
+          git config user.email "actions@github.com"
+
+          git add             index.html admin.html confirm.html diagnostics.html             styles.css app.js admin.js confirm.js diagnostics.js             manifest.webmanifest sw.js version.js
+
+          if git diff --cached --quiet; then
+            echo "Nessuna differenza rispetto alla versione già installata."
+          else
+            git commit -m "Installa aggiornamento Fiera da ZIP"
+            git push origin main
+            echo "Aggiornamento pubblicato con successo."
+          fi
