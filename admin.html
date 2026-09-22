@@ -1,78 +1,8 @@
 <!doctype html>
-<html lang="it">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0878b9">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <title>Gestione Fiera · Admin</title>
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body class="admin-body">
-  <div class="nicchio-ribbon" aria-hidden="true"></div>
-
-  <div id="loginView" class="login-shell">
-    <div class="login-visual">
-      <div class="login-symbol shell-emblem large" aria-hidden="true">
-        <svg viewBox="0 0 64 64"><path d="M32 8c-12 0-22 12-22 28 0 9 8 16 22 20 14-4 22-11 22-20C54 20 44 8 32 8Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M32 10v43M18 17l14 36M46 17 32 53M12 30l20 23M52 30 32 53" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/></svg>
-      </div>
-      <div class="eyebrow light">Nobile Contrada del Nicchio</div>
-      <h1>Fiera Gastronomica</h1>
-      <p>Il centro di controllo per serate, padiglioni, persone e conferme.</p>
-    </div>
-    <div class="login-card">
-      <div class="login-chip">Area organizzatori</div>
-      <h2>Bentornato.</h2>
-      <p>Accedi per gestire la Fiera.</p>
-      <form id="loginForm">
-        <label class="field"><span>Email</span><input id="email" type="email" required autocomplete="username"></label>
-        <label class="field mt"><span>Password</span><input id="password" type="password" required autocomplete="current-password"></label>
-        <button class="primary-cta nicchio-cta" type="submit">Accedi <b>→</b></button>
-        <div id="loginMsg" class="mt"></div>
-      </form>
-    </div>
-  </div>
-
-  <div id="appView" class="admin-app" style="display:none">
-    <aside class="admin-sidebar">
-      <a class="sidebar-brand" href="index.html">
-        <span class="shell-emblem" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M32 8c-12 0-22 12-22 28 0 9 8 16 22 20 14-4 22-11 22-20C54 20 44 8 32 8Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M32 10v43M18 17l14 36M46 17 32 53M12 30l20 23M52 30 32 53" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/></svg></span>
-        <span><small>Nobile Contrada del Nicchio</small><strong>Gestione Fiera</strong></span>
-      </a>
-      <nav class="admin-nav" id="nav">
-        <button class="active" data-tab="overview"><span class="nav-icon">⌂</span><span>Panoramica</span></button>
-        <button data-tab="nights"><span class="nav-icon">◫</span><span>Serate</span></button>
-        <button data-tab="availability"><span class="nav-icon">✓</span><span>Disponibilità</span></button>
-        <button data-tab="people"><span class="nav-icon">◎</span><span>Persone</span></button>
-        <button data-tab="settings"><span class="nav-icon">⚙</span><span>Impostazioni</span></button>
-        <button data-tab="diagnostics"><span class="nav-icon">＋</span><span>Diagnostica</span></button>
-      </nav>
-      <div class="sidebar-foot">
-        <a href="index.html" target="_blank">Apri modulo pubblico ↗</a>
-        <small>Servizi Fiera Gastronomica</small>
-      </div>
-    </aside>
-
-    <header class="admin-top">
-      <div class="mobile-brand"><span class="shell-mini">◉</span><strong>Gestione Fiera</strong></div>
-      <div class="top-status"><span class="live-dot"></span><span>Database collegato</span></div>
-      <div class="top-actions"><span class="version-pill" id="versionPill"></span><a class="icon-btn text-btn" href="index.html" target="_blank">Modulo ↗</a><button class="icon-btn" id="logout" title="Esci">⎋</button></div>
-    </header>
-
-    <main class="admin-main">
-      <section id="overview" class="panel active"></section>
-      <section id="nights" class="panel"></section>
-      <section id="availability" class="panel"></section>
-      <section id="people" class="panel"></section>
-      <section id="settings" class="panel"></section>
-      <section id="diagnostics" class="panel"></section>
-    </main>
-  </div>
-
-  <div class="modal-backdrop" id="modalBack"><div class="modal-sheet" id="modal"></div></div>
-  <div class="toast" id="toast"></div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="version.js"></script><script src="admin.js"></script>
-  <script>if('serviceWorker'in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}</script>
-</body>
-</html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fiera Admin</title><link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script></head>
+<body><main class="shell"><header class="topbar"><div><div class="eyebrow">GESTIONE FIERA</div><h1>Dashboard</h1><p id="userline">Accesso amministratore</p></div><button class="ghost" id="logout">Esci</button></header>
+<section id="login" class="card"><h2>Accedi</h2><div class="grid2"><label>Email<input id="email" type="email"></label><label>Password<input id="password" type="password"></label></div><button id="loginBtn">Accedi</button><div id="loginMsg"></div></section>
+<div id="app" hidden><nav class="segmented"><button data-tab="overview" class="active">Panoramica</button><button data-tab="nights">Serate</button><button data-tab="availability">Disponibilità</button><button data-tab="people">Persone</button><button data-tab="settings">Impostazioni</button><a href="diagnostics.html">Diagnostica</a></nav>
+<section id="view" class="card"></section></div></main><script src="admin.js"></script></body></html>
