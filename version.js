@@ -1,1 +1,1 @@
-window.FIERA_VERSION = '6.0.0';
+window.FIERA_VERSION = '7.0.0';
